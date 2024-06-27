@@ -16,16 +16,22 @@ public class MyCalendar {
         maxDay = new MaxDay(monthEnum.length(false));
     }
 
-    public MaxDay getMaxDay() {
-        return maxDay;
+    public int getMaxDay() {
+        return maxDay.getMaxDay();
     }
 
-    public MyMonth getMonth() {
-        return month;
+    public int getMonth() {
+        return month.getMonth();
     }
 
-    public boolean isHoliday(int day) {
+    public boolean isPublicHoliday(int day) {
         return publicHoliday.isHoliday(month, day);
+    }
+
+    public DayEnum getNextDay() {
+        DayEnum day = currDay;
+        currDay = day.next(day);
+        return day;
     }
 
     @Override

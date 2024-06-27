@@ -13,39 +13,43 @@ public class WorkerManger {
     public String getWeekWorker() {
         String target;
 
-        if (!weekCache.isEmpty()) {
+        if (weekCache != null) {
             target = weekCache;
             weekCache = null;
-            return target;
-        }
-
-        target = workers.getWeek();
-        if (!preWorker.equals(target)) {
             preWorker = target;
             return target;
         }
 
-        weekCache = target;
-        return workers.getWeek();
+        target = workers.getWeek();
+        if (preWorker != null && preWorker.equals(target)) {
+            weekCache = target;
+            preWorker = workers.getWeek();
+            return preWorker;
+        }
+
+        preWorker = target;
+        return target;
     }
 
     public String getHoliWorker() {
         String target;
 
-        if (!holiCache.isEmpty()) {
+        if (holiCache != null) {
             target = holiCache;
             holiCache = null;
-            return target;
-        }
-
-        target = workers.getHoli();
-        if (!preWorker.equals(target)) {
             preWorker = target;
             return target;
         }
 
-        holiCache = target;
-        return workers.getHoli();
+        target = workers.getHoli();
+        if (preWorker != null && preWorker.equals(target)) {
+            holiCache = target;
+            preWorker = workers.getHoli();
+            return preWorker;
+        }
+
+        preWorker = target;
+        return target;
     }
 
 }

@@ -36,4 +36,10 @@ public enum DayEnum {
         }
         throw new IllegalArgumentException();
     }
+
+    public DayEnum next(DayEnum day) {
+        DayEnum[] values = DayEnum.values();
+        int nextIdx = (this.ordinal() + 1) % values.length;
+        return values[nextIdx];
+    }
 }
