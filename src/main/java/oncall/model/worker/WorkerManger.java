@@ -2,8 +2,7 @@ package oncall.model.worker;
 
 public class WorkerManger {
     private final WorkList workers;
-    private String preWeek;
-    private String preHoli;
+    private String preWorker;
     private String weekCache;
     private String holiCache;
 
@@ -21,8 +20,8 @@ public class WorkerManger {
         }
 
         target = workers.getWeek();
-        if (!preWeek.equals(target)) {
-            preWeek = target;
+        if (!preWorker.equals(target)) {
+            preWorker = target;
             return target;
         }
 
@@ -40,8 +39,8 @@ public class WorkerManger {
         }
 
         target = workers.getHoli();
-        if (!preHoli.equals(target)) {
-            preHoli = target;
+        if (!preWorker.equals(target)) {
+            preWorker = target;
             return target;
         }
 
