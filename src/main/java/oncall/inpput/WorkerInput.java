@@ -25,24 +25,28 @@ public class WorkerInput {
         return instance;
     }
 
-    public WorkerManger createWorkerManagerFromInput(){
-        boolean isValid = false;
-
-        while (!isValid) {
+    public WorkerManger createWorkerManagerFromInput() {
+        while (true) {
             try {
-                System.out.print("평일 비상 근무 순번대로 사원 닉네임을 입력하세요> ");
-                ArrayList<String> weekList = input();
-                System.out.print("휴일 비상 근무 순번대로 사원 닉네임을 입력하세요> ");
-                ArrayList<String> holiList = input();
+                ArrayList<String> weekList = getWeekFromInput();
+                ArrayList<String> holiList = getHoliFromInput();
 
-                isValid = true;
                 WorkList workers = new WorkList(weekList, holiList);
                 return new WorkerManger(workers);
             } catch (IllegalArgumentException exception) {
                 System.out.println(EnumError.ERROR_HEADER.getMessage() + " " + EnumError.ERROR_BODY.getMessage());
             }
         }
-        return new WorkerManger(null);
+    }
+
+    private ArrayList<String> getHoliFromInput() {
+        System.out.print("휴일 비상 근무 순번대로 사원 닉네임을 입력하세요> ");
+        return input();
+    }
+
+    private ArrayList<String> getWeekFromInput() {
+        System.out.print("평일 비상 근무 순번대로 사원 닉네임을 입력하세요> ");
+        return input();
     }
 
     private ArrayList<String> input() {
@@ -51,6 +55,11 @@ public class WorkerInput {
         String line = Console.readLine();
         String[] split = line.split(",");
 
+        return getList(split);
+    }
+
+    private ArrayList<String> getList(String[] split) throws IllegalArgumentException {
+        ArrayList<String> list;
         if (split.length < minWorker || split.length > maxWorker) {
             throw new IllegalArgumentException();
         }

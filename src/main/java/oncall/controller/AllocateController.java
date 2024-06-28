@@ -20,17 +20,26 @@ public class AllocateController {
     public void allocateWorker() {
         int maxDay = myCalendar.getMaxDay();
         int month = myCalendar.getMonth();
+        allocate(maxDay, month);
+    }
+
+    private void allocate(int maxDay, int month) {
         String worker;
-        for (int i = 1; i <= maxDay; i++) {
-            DayEnum day = myCalendar.getNextDay();
-            if (day.getKoreanName().equals("토") || day.getKoreanName().equals("일") || myCalendar.isPublicHoliday(i)) {
+        DayEnum day;
+        for (int dayNum = 1; dayNum <= maxDay; dayNum++) {
+            day = myCalendar.getNextDay();
+            if (isHoliday(day, dayNum)) {
                 worker = workerManger.getHoliWorker();
-                outputManager.addOutput(new MyMonth(month), i, day, myCalendar.isPublicHoliday(i), worker);
+                outputManager.addOutput(new MyMonth(month), dayNum, day, myCalendar.isPublicHoliday(dayNum), worker);
                 continue;
             }
             worker = workerManger.getWeekWorker();
-            outputManager.addOutput(new MyMonth(month), i, day, myCalendar.isPublicHoliday(i), worker);
+            outputManager.addOutput(new MyMonth(month), dayNum, day, myCalendar.isPublicHoliday(dayNum), worker);
         }
+    }
+
+    private boolean isHoliday(DayEnum day, int i) {
+        return day.getKoreanName().equals("토") || day.getKoreanName().equals("일") || myCalendar.isPublicHoliday(i);
     }
 
     public void printResult() {

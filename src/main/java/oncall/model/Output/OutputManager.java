@@ -19,10 +19,6 @@ public class OutputManager {
         list.add(output);
     }
 
-    public ArrayList<Output> getNextOutput() {
-        return list;
-    }
-
     public void printResult() {
         PrintOutput.printOutput(list);
     }
